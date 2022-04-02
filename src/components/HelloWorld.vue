@@ -1,58 +1,95 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="pagination">
+    <button :disabled="pageNo==1" @click="$emit('getPageNo',(pageNo-1))">上一页</button>
+    <button v-if="startNumAndEndNum.start > 1" @click="$emit('getPageNo',1)" :class="{active:pageNo == 1}">1</button>
+
+    <button v-if="startNumAndEndNum.start > 2" >···</button>
+    <template v-for="(page,index) in startNumAndEndNum.end">
+      <button :class="{active:pageNo == page}"  :key="index"  v-if="page>=startNumAndEndNum.start" @click="$emit('getPageNo',page)">{{page}}</button>
+    </template>
+
+
+    <button v-if="startNumAndEndNum.end < totalPage - 1">···</button>
+    <button v-if="startNumAndEndNum.end < totalPage" @click="$emit('getPageNo',totalPage)">{{totalPage}}</button>
+    <button :class="{active:pageNo == totalPage}" :disabled="pageNo==totalPage" @click="$emit('getPageNo',pageNo+1)">下一页</button>
+
+    <button style="margin-left: 30px">共 {{total}} 条</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: "Pagination",
+  //  当前页、每一页展示的数据、数据总个数、连续页码数（显示的页码数）
+  props:['pageNo','pageSize','total','continues'],
+  computed:{
+    //总页数  math.ceil向上取整
+    totalPage() {
+      return Math.ceil(this.total / this.pageSize)
+    },
+    startNumAndEndNum(){
+      const {continues,pageNo,totalPage} = this;
+      //continues：展示的页数；   pageNo：当前页
+      let start = 0, //开始页
+          end = 0;    //结束页
+      if(continues > totalPage) {  //总页数小于5的情况
+        start = 1;
+        end = totalPage;
+      } else {
+        //else就是正常情况
+        start = pageNo - parseInt(continues/2);
+        end = pageNo + parseInt(continues/2);
+        //把出现不正常的现象（start <= 0）纠正
+        if(start < 1) {
+          start = 1;
+          end = continues;
+        }
+        //start大于总页数的情况纠正
+        if(end > totalPage) {
+          end = totalPage;
+          start = totalPage - continues + 1;
+        }
+      }
+      return { start,end }
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
+<style lang="less" scoped>
+.pagination {
+  text-align: center;
+  button {
+    margin: 0 5px;
+    background-color: #f4f4f5;
+    color: #606266;
+    outline: none;
+    border-radius: 2px;
+    padding: 0 4px;
+    vertical-align: top;
+    display: inline-block;
+    font-size: 13px;
+    min-width: 35.5px;
+    height: 28px;
+    line-height: 28px;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+    border: 0;
+
+    &[disabled] {
+      color: #c0c4cc;
+      cursor: not-allowed;
+    }
+
+    &.active {
+      cursor: not-allowed;
+      background-color: #409eff;
+      color: #fff;
+    }
+  }
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.active {
+  background-color: #409eff;
 }
 </style>
