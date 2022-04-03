@@ -6,7 +6,7 @@
     <div class="button-text">
       <h1>Cool UI  官方网站</h1>
       <p>一个很Cool的UI组件库</p>
-      <a href="">快速上手 →</a>
+      <span @click="goStart">快速上手 →</span>
     </div>
     <div class="info">
       <div class="info-item">
@@ -29,7 +29,12 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  methods:{
+    goStart() {
+      this.$router.push('/start/install')
+    }
+  }
 }
 </script>
 
@@ -53,7 +58,7 @@ export default {
     color: #6a8bad;
     margin: 0.5rem;
   }
-  .button-text a {
+  .button-text span {
     display: inline-block;
     width: 8rem;
     height: 3.1rem;
@@ -101,7 +106,11 @@ export default {
     line-height: 1.7;
   }
   .footer {
-    margin: 2rem 0 1rem 0;
+    margin: 4rem auto 3rem auto;
+    padding-top: 1rem;
     color: #c0c4cc;
+    text-align: center;
+
+    max-width:960px;
   }
 </style>

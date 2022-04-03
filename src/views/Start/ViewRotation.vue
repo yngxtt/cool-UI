@@ -1,10 +1,9 @@
 <template>
   <div class="cover">
-    <h1><a href="javascript:;">#</a>分页器</h1>
+    <h1><a href="javascript:;">#</a>轮播图</h1>
     <h3><a href="javascript:;">#</a>预览</h3>
-    <p>点击页码试试，页码有逻辑可以正常跳转...</p>
     <div class="look">
-      <c-pagination :pageNo="pageNo" :pageSize="10" :total="100" :continues="5" @getPageNo="getPageNo"/>
+      <c-rotation/>
     </div>
     <h3><a href="javascript:;">#</a>代码</h3>
     <section class="components-code" style="background-color:#fafafa;">
@@ -74,7 +73,7 @@
 </template>
 
 <script>
-import CPagination from "../../components/Pagination";
+import CRotation from "../../components/Rotation";
 import { PrismEditor } from "vue-prism-editor";
 import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
 
@@ -89,7 +88,7 @@ import "prismjs/themes/prism-tomorrow.css";
 export default {
   name: "ViewPagination",
   components:{
-    CPagination,
+    CRotation,
     PrismEditor
   },
   data(){
@@ -121,8 +120,8 @@ export default {
             }
            </ script>
            `,
-        lineNumbers:false,
-        readonly:true
+      lineNumbers:false,
+      readonly:true
 
     }
   },
@@ -133,124 +132,123 @@ export default {
     },
 
     highlighter(code) {
-     return highlight(code, languages.js); //returns html
-   }
+      return highlight(code, languages.js); //returns html
+    }
 
   }
 }
 </script>
 
 <style lang="less" scoped>
-  p {color: #606266;}
-  .my-editor {
-    color: #409eff;
-    font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
-    font-size: 14px;
-    line-height: 1.5;
-    padding: 5px;
+.my-editor {
+  color: #409eff;
+  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 5px;
+}
+.cover {
+  max-width: 740px;
+  margin-top: 3rem;
+  text-align: left;
+  /*background-color: #ccc;*/
+  margin-left: auto;
+  margin-right: auto;
+  .look {
+    display: block;
+    margin: 4rem 0;
   }
-  .cover {
-      max-width: 740px;
-      margin-top: 3rem;
-      text-align: left;
-      /*background-color: #ccc;*/
-      margin-left: auto;
-      margin-right: auto;
-      .look {
-        display: block;
-        margin: 4rem 0;
-      }
-      h1 {
-        width: 100%;
-        text-align: left;
-        display: block;
-        padding-bottom: 3rem;
-        a {
-          margin-left: -1.48rem;
-          color: #409eff;
-          padding-right: 0.3rem;
-          display: none;
-        }
-      }
-      h1:hover a {
-        display: inline-block;
-      }
-      h3 {
-        width: 100%;
-        text-align: left;
-        display: block;
-        border-bottom: 1px solid #c0c4cc;
-        padding-bottom: 0.5rem;
-        margin: 2rem 0;
-        a {
-          margin-left: -1rem;
-          color: #409eff;
-          padding-right: 0.3rem;
-          display: none;
-        }
-      }
-      h3:hover a {
-        display: inline-block;
-      }
+  h1 {
+    width: 100%;
+    text-align: left;
+    display: block;
+    padding-bottom: 3rem;
+    a {
+      margin-left: -1.48rem;
+      color: #409eff;
+      padding-right: 0.3rem;
+      display: none;
+    }
+  }
+  h1:hover a {
+    display: inline-block;
+  }
+  h3 {
+    width: 100%;
+    text-align: left;
+    display: block;
+    border-bottom: 1px solid #c0c4cc;
+    padding-bottom: 0.5rem;
+    margin: 2rem 0;
+    a {
+      margin-left: -1rem;
+      color: #409eff;
+      padding-right: 0.3rem;
+      display: none;
+    }
+  }
+  h3:hover a {
+    display: inline-block;
+  }
 
-    .components-code {
-      background-color: #eee;
-      text-align: left;
-      font-family: Source Code Pro,DejaVu Sans Mono,Ubuntu Mono,Anonymous Pro,Droid Sans Mono,Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,PingFang SC,Microsoft YaHei,sans-serif;;
-      //color: #eaecec;
-      border: 1px solid #eeeeee;
-      border-radius: 0.3rem;
-      font-size: 0.9rem;
+  .components-code {
+    background-color: #eee;
+    text-align: left;
+    font-family: Source Code Pro,DejaVu Sans Mono,Ubuntu Mono,Anonymous Pro,Droid Sans Mono,Menlo,Monaco,Consolas,Inconsolata,Courier,monospace,PingFang SC,Microsoft YaHei,sans-serif;;
+    //color: #eaecec;
+    border: 1px solid #eeeeee;
+    border-radius: 0.3rem;
+    font-size: 0.9rem;
+    margin: 4rem 0;
+    line-height: 1;
+  }
+
+  .components-code:hover {
+    box-shadow: -0.1px 0.5px 0.6px 0.8px rgba(160,160,160,0.6),-0.1px 0.5px 0.6px 0.8px rgba(160,160,160,0.2);
+    transition: all 0.8s;
+  }
+  .explain {
+    table {
       margin: 4rem 0;
-      line-height: 1;
-    }
-
-    .components-code:hover {
-      box-shadow: -0.1px 0.5px 0.6px 0.8px rgba(160,160,160,0.6),-0.1px 0.5px 0.6px 0.8px rgba(160,160,160,0.2);
-      transition: all 0.8s;
-    }
-    .explain {
-      table {
-        margin: 4rem 0;
-        width: 100%;
-        thead {
-          /*display: flex;*/
-          /*justify-content: center;*/
-          tr {
-            flex-grow: 1;
-            th {
-                width: 16%;
-                text-align: center;
-                font-weight: 460;
-                color: #95999c;
-                padding: 0 0.4rem ;
-                height: 2.3rem;
-            }
+      width: 100%;
+      thead {
+        /*display: flex;*/
+        /*justify-content: center;*/
+        tr {
+          flex-grow: 1;
+          th {
+            width: 16%;
+            text-align: center;
+            font-weight: 460;
+            color: #95999c;
+            padding: 0 0.4rem ;
+            height: 2.3rem;
           }
         }
-        tbody {
-          tr {
-              td {
-                height: 2.8rem;
-                width: 16%;
-                text-align: center;
-                border-top: 1px solid #c0c8cc;
-                color: #4e6e8e;
-              }
-            td:nth-child(2) {
-              width: 36%;
-            }
+      }
+      tbody {
+        tr {
+          td {
+            height: 2.8rem;
+            width: 16%;
+            text-align: center;
+            border-top: 1px solid #c0c8cc;
+            color: #4e6e8e;
+          }
+          td:nth-child(2) {
+            width: 36%;
           }
         }
       }
     }
-    .footer {
-      margin: 2rem auto 3rem auto;
-      padding-top: 1rem;
-      color: #c0c4cc;
-      text-align: center;
-      border-top: 1px #eeeeee solid;
-
-    }
   }
+  .footer {
+    margin: 2rem auto 3rem auto;
+    padding-top: 1rem;
+    color: #c0c4cc;
+    text-align: center;
+    border-top: 1px #eeeeee solid;
+
+  }
+}
 </style>

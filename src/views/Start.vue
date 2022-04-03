@@ -33,11 +33,11 @@ export default {
       navStart:[{
         id:0,
         text:'安装',
-        page:'/start/page'
+        page:'/start/install'
       },{
         id:1,
         text:'快速上手',
-        page:'/start/page'
+        page:'/start/fast'
       }],
       navComponents:[{
         id:2,
@@ -46,7 +46,7 @@ export default {
       },{
         id:3,
         text:'Rotation - 轮播图',
-        page:'/start/page'
+        page:'/start/rotation'
       },{
         id:4,
         text:'Calendar - 日历',

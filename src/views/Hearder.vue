@@ -34,7 +34,7 @@ export default {
         page:'/home'
       },{
         text:'文档',
-        page:'/start'
+        page:'/start/install'
       }],
       activeValue:0
     }
@@ -67,9 +67,10 @@ export default {
     padding-left: 1rem;
   }
   .cover .logo span{
+    color: #409eff;
     font-size: 1.6rem;
     font-weight: 600;
-    color: #2c3e50;
+    /*color: #2c3e50;*/
     line-height: 3.6rem;
   }
   .cover .navbar {
