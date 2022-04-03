@@ -3,7 +3,8 @@
 <!--    <HelloWorld :pageNo="pageNo" :pageSize="10" :total="100" :continues="5" @getPageNo="getPageNo"></HelloWorld>-->
     <Hearder></Hearder>
 <!--    <Home></Home>-->
-    <Start></Start>
+<!--    <Start></Start>-->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -11,14 +12,14 @@
 // import HelloWorld from './components/HelloWorld.vue';
 import Hearder from "./views/Hearder";
 // import Home from "./views/Home";
-import Start from "./views/Start";
+// import Start from "./views/Start";
 
 export default {
   name: 'App',
   components: {
-  Hearder,
+  Hearder
   // Home,
-    Start
+  //   Start
     // HelloWorld
   },
   data(){
@@ -36,6 +37,7 @@ export default {
 </script>
 
 <style>
+html { overflow-y: scroll; }
 * {
   margin: 0;
   padding: 0;
@@ -66,7 +68,7 @@ body {
  高宽分别对应横竖滚动条的尺寸*/
 ::-webkit-scrollbar
 {
-  width:15px;
+  width:12px;
   height:16px;
   background-color:#F5F5F5;
 }
@@ -84,7 +86,7 @@ body {
 {
   border-radius:10px;
   -webkit-box-shadow:inset 0 0 5px rgba(0,0,255,.3);
-  background-color:#ccc;
+  background-color:#eee;
 }
 
 </style>

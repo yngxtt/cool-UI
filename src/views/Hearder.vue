@@ -9,12 +9,10 @@
         <input type="search" results>
         <img src="../assets/search.svg">
       </div>
-      <div class="nav-text " >
-        <a v-for="(nav,index) in navList"
-           :key="index"
-           @click="active = index"
-           :class="{active:active == index}"
-        >{{nav.text}}</a>
+      <div class="nav-text" v-for="(nav,index) in navList"  :key="index" @click="navTransfrom(index)">
+        <template  @click="navTransfrom(index)">
+          <router-link :class="{active:activeValue==index}" :to="nav.page">{{nav.text}}</router-link>
+        </template>
       </div>
       <div class="nav-text github">
         <a href="">GitHub</a>
@@ -33,12 +31,17 @@ export default {
     return{
       navList:[{
         text:'主页',
-        page:''
+        page:'/home'
       },{
         text:'文档',
-        page:''
+        page:'/start'
       }],
-      active:0
+      activeValue:0
+    }
+  },
+  methods:{
+    navTransfrom(index) {
+      this.activeValue = index;
     }
   }
 }
