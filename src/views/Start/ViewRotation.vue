@@ -2,8 +2,13 @@
   <div class="cover">
     <h1><a href="javascript:;">#</a>轮播图</h1>
     <h3><a href="javascript:;">#</a>预览</h3>
+    <p>自动播放无缝隙滚动 | 点击按钮节流控制 | 自动播放曲线运动</p>
+    <P class="p">可自定义播放速度，可自定义播放曲线。</P>
     <div class="look">
-      <c-rotation/>
+      <c-rotation
+          :imgData="imgData"
+          :speed="speed"
+      />
     </div>
     <h3><a href="javascript:;">#</a>代码</h3>
     <section class="components-code" style="background-color:#fafafa;">
@@ -30,39 +35,32 @@
         </thead>
         <tbody>
         <tr>
-          <td scope="row">pageNo</td>
-          <td>当前页码</td>
+          <td scope="row">speed</td>
+          <td>每张图片播放的时间周期，控制播放速度</td>
           <td>number</td>
-          <td>是</td>
-          <td>1</td>
+          <td>否</td>
+          <td>2000</td>
         </tr>
         <tr>
-          <td scope="row">pageSize</td>
-          <td>每页指定显示的数量</td>
-          <td>number</td>
+          <td scope="row">imgData</td>
+          <td>图片数据，数组长度无要求</td>
+          <td>array</td>
           <td>是</td>
-          <td>-</td>
+          <td>——</td>
         </tr>
-        <tr>
-          <td scope="row">total</td>
-          <td>需要显示的总数量</td>
-          <td>number</td>
+        <tr class="tr-font-size">
+          <td scope="row">imgUrl</td>
+          <td>图片链接地址src</td>
+          <td>String</td>
           <td>是</td>
-          <td>-</td>
+          <td>——</td>
         </tr>
-        <tr>
-          <td scope="row">continues</td>
-          <td>显示的页码数量</td>
-          <td>number</td>
-          <td>是</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td scope="row">@getPageNo="getPageNo"</td>
-          <td>切换页码时触发的回调函数，页码作为参数返回</td>
-          <td>function</td>
-          <td>是</td>
-          <td>固定式</td>
+        <tr class="tr-font-size">
+          <td scope="row">imgLink</td>
+          <td>图片跳转链接</td>
+          <td>String</td>
+          <td>否</td>
+          <td>——</td>
         </tr>
         </tbody>
       </table>
@@ -73,17 +71,15 @@
 </template>
 
 <script>
-import CRotation from "../../components/Rotation";
+import   CRotation from '../../components/Rotation'
+
 import { PrismEditor } from "vue-prism-editor";
 import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
-
 // import highlighting library (you can use any library you want just return html string)
 import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 import "prismjs/themes/prism-tomorrow.css";
-
-
 
 export default {
   name: "ViewPagination",
@@ -93,31 +89,81 @@ export default {
   },
   data(){
     return{
+      imgData:[
+        {
+          imgUrl:'../assets/img/a.png',
+          imgLink:''
+        },
+        {
+          imgUrl:'../assets/img/b.png',
+          imgLink:''
+        },
+        {
+          imgUrl:'../assets/img/c.png',
+          imgLink:''
+        },
+        {
+          imgUrl:'../assets/img/d.png',
+          imgLink:''
+        },
+        {
+          imgUrl:'../assets/img/e.png',
+          imgLink:''
+        }
+
+
+        // {
+        //   imgUrl:require('/img/a.png'),
+        //   imgLink:''
+        // },
+        // {
+        //   imgUrl:require('../assets/img/b.png'),
+        //   imgLink:''
+        // },
+        // {
+        //   imgUrl:require('../assets/img/c.png'),
+        //   imgLink:''
+        // },
+        // {
+        //   imgUrl:require('../assets/img/d.png'),
+        //   imgLink:''
+        // },
+        // {
+        //   imgUrl:require('../assets/img/e.png'),
+        //   imgLink:''
+        // },
+      ],
+      speed:2000,
       pageNo:1,
       code:`
           < template>
-              <c-pagination
-                  :pageNo="pageNo"
-                  :pageSize="10"
-                  :total="100"
-                  :continues="5"
-                  @getPageNo="getPageNo"
-                />
+              <c-rotation
+                :speed="speed"
+                :imgData="imgData"
+              />
             </template>
             <script>
              export default {
                 data(){
                   return{
-                    pageNo:1,
-                  }
-                },
-                methods:{
-                  getPageNo(pageNo) {
-                    this.newPageNo = pageNo;
-                    this.pageNo = this.newPageNo;
+                    speed:2000,
+                    imgData:[
+                        {
+                          imgUrl:'../assets/img/a.png',
+                          imgLink:''
+                        },
+                        {
+                          imgUrl:'../assets/img/b.png',
+                          imgLink:''
+                        },
+                        {
+                          imgUrl:'../assets/img/c.png',
+                          imgLink:''
+                        }
+                    ]
                   }
                 }
-            }
+             }
            </ script>
            `,
       lineNumbers:false,
@@ -207,6 +253,11 @@ export default {
     box-shadow: -0.1px 0.5px 0.6px 0.8px rgba(160,160,160,0.6),-0.1px 0.5px 0.6px 0.8px rgba(160,160,160,0.2);
     transition: all 0.8s;
   }
+
+  .tr-font-size {
+    font-size: 0.95rem;
+    color: #606266;
+  }
   .explain {
     table {
       margin: 4rem 0;
@@ -250,5 +301,10 @@ export default {
     border-top: 1px #eeeeee solid;
 
   }
+}
+.p {
+  margin: 0.5rem 0;
+  color: #606266;
+  font-size: 0.9rem;
 }
 </style>

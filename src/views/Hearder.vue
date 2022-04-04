@@ -15,7 +15,7 @@
         </template>
       </div>
       <div class="nav-text github">
-        <a href="">GitHub</a>
+        <a target="_blank" href="https://github.com/yngxtt/cool-UI">GitHub</a>
         <img src="../assets/link.svg">
       </div>
     </div>
