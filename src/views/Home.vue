@@ -1,8 +1,7 @@
 <template>
   <div class="cover">
     <div class="logo">
-      <img src="../assets/logoText.png" alt="">
-    </div>
+      <img src="../../public/logoText.png" /></div>
     <div class="button-text">
       <h1>Cool UI  官方网站</h1>
       <p>一个很Cool的UI组件库</p>
@@ -39,6 +38,12 @@ export default {
 </script>
 
 <style scoped>
+  @media screen and (max-width:900px){
+    .info {
+        display: flex;
+        flex-direction: column;
+    }
+  }
   .cover {
     text-align: center;
   }
@@ -72,16 +77,16 @@ export default {
   .info {
     border-top: 1px solid #eaecef;
     border-bottom: 1px solid #eaecef;
-    padding: 1.2rem 0;
+    padding: 1.2rem 0rem;
     margin-top: 1.6rem;
     display:  flex;
     flex-wrap: wrap;
-    align-items: flex-start;
-    align-content: stretch;
     justify-content: space-between;
     max-width:960px;
     margin-left:  auto;
     margin-right: auto;
+    border-left: rgba(250,250,250,0) solid 1.5rem;
+    border-right: rgba(250,250,250,0) solid 1.5rem;
   }
   .info .info-item {
     display: block;

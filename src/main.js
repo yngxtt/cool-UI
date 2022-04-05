@@ -10,8 +10,10 @@ import router from './router/index.js';
 Vue.config.productionTip = false
 
 new Vue({
-
   render: h => h(App),
-  router
+  router,
+  beforeCreate() {
+    Vue.prototype.$bus = this;
+  }
 }).$mount('#app')
 

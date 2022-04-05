@@ -16,7 +16,6 @@
           <li v-for="(NUM,index) in olNumber" :key="index" @click="olClick(index)"></li>
       </ol>
     </div>
-    <img src="../assets/img/d.png" alt="">
   </div>
 </template>
 
@@ -111,7 +110,7 @@ export default {
     },
     // 圆点变色
     circleChange(num){
-      for(var i = 0;i < this.$refs.ol.children.length;i++) {
+      for(let i = 0;i < this.$refs.ol.children.length;i++) {
         this.$refs.ol.children[i].style.backgroundColor = 'rgba(255,255,255,0.3)';
       }
       this.$refs.ol.children[num].style.backgroundColor = 'rgba(255,255,255,1)';
@@ -119,7 +118,7 @@ export default {
     //圆点点击事件
     olClick(index){
       //排他思想，小圆圈变色
-      for(var i = 0;i < this.$refs.ol.children.length; i++ ) {
+      for(let i = 0;i < this.$refs.ol.children.length; i++ ) {
         this.$refs.ol.children[i].style.backgroundColor = 'rgba(255,255,255,0.3)';
       }
       this.$refs.ol.children[index].backgroundColor = 'rgba(255,255,255,1)';
@@ -135,9 +134,6 @@ export default {
       this.animate(this.$refs.imgUl,-(this.imgWidth * index));
     }
 
-
-  },
-  component() {
 
   },
   created() {

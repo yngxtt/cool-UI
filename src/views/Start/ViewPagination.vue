@@ -42,14 +42,14 @@
           <td>每页指定显示的数量</td>
           <td>number</td>
           <td>是</td>
-          <td>-</td>
+          <td>——</td>
         </tr>
         <tr>
           <td scope="row">total</td>
           <td>需要显示的总数量</td>
           <td>number</td>
           <td>是</td>
-          <td>-</td>
+          <td>——</td>
         </tr>
         <tr>
           <td scope="row">continues</td>

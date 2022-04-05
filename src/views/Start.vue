@@ -1,6 +1,6 @@
 <template>
     <div class="cover ">
-      <div class="nav-left clearfix" >
+      <div class="nav-left clearfix" v-if="navIsShow" >
         <div class="nav-item">
           <p>入 门</p>
           <ul>
@@ -30,6 +30,7 @@ export default {
   name: "Start",
   data() {
     return{
+      navIsShow:false, //导航是否显示
       navStart:[{
         id:0,
         text:'安装',
@@ -41,30 +42,65 @@ export default {
       }],
       navComponents:[{
         id:2,
-        text:'Pagination - 分页',
-        page:'/start/page'
+        text:'Calendar - 日历',
+        page:'/start/calendar'
       },{
         id:3,
         text:'Rotation - 轮播图',
         page:'/start/rotation'
       },{
         id:4,
-        text:'Calendar - 日历',
+        text:'Pagination - 分页',
         page:'/start/page'
       }],
-      active:0
+      active:0,
+      windowWidth:1000
     }
   },
   methods:{
     //导航切换
     navSwitch(id) {
       this.active = id;
+      if(this.windowWidth < 960) {
+        this.navIsShow = false;
+      }
+    },
+    navShow(value) {
+      if( this.windowWidth < 960 ){
+        if( this.navIsShow === value) {
+          this.navIsShow = !value;
+        } else {
+          this.navIsShow = value;
+        }
+
+      } else {
+        this.navIsShow = value;
+      }
+
+    },
+    windowW(value) {
+      this.windowWidth = value
+
+
     }
+  },
+  mounted() {
+    this.$bus.$on('navShow',this.navShow,
+      //   (value)=>{
+      // console.log(value)
+    // }
+    );
+    this.$bus.$on('getWindowWidth',this.windowW
+        //   (value)=>{
+        // console.log(value)
+        // }
+    );
   }
 }
 </script>
 
 <style scoped>
+
 /* 清除浮动 */
 .clearfix::after {
   display: block;
@@ -106,7 +142,7 @@ export default {
   }
   .router-view{
     position: absolute;
-    right: 0;
+    right: 0 ;
     width: 86%;
     text-align: center;
     top: 3.6rem;
@@ -117,6 +153,14 @@ export default {
   }
   .active a {
     color: #409eff;
+  }
+  @media screen and (max-width:960px){
+    .router-view {
+      width: 96%;
+      top:0;
+      margin: 2rem auto;
+      /*padding: 0 0.5rem;*/
+    }
   }
 
 </style>

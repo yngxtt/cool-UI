@@ -2,21 +2,22 @@
   <div>
   <div class="cover">
     <div class="logo">
-      <span>Cool UI</span>
+      <img @click="navShowClick" v-if="navLinkShow" class="logo-img" src="../../public/navIcon.svg" >
+      <span v-if="logoIsShow">Cool UI</span>
     </div>
     <div class="navbar">
       <div class="search-input">
-        <input type="search" results>
-        <img src="../assets/search.svg">
+        <input v-if="searchShow" type="text">
       </div>
+      <img class="search-img" @click="isSearchShow" src="../../public/search.svg" />
       <div class="nav-text" v-for="(nav,index) in navList"  :key="index" @click="navTransfrom(index)">
         <template  @click="navTransfrom(index)">
-          <router-link :class="{active:activeValue==index}" :to="nav.page">{{nav.text}}</router-link>
+          <router-link :class="{active:activeValue == index}" :to="nav.page">{{nav.text}}</router-link>
         </template>
       </div>
       <div class="nav-text github">
         <a target="_blank" href="https://github.com/yngxtt/cool-UI">GitHub</a>
-        <img src="../assets/link.svg">
+        <img src="../../public/link.svg" />
       </div>
     </div>
   </div>
@@ -29,6 +30,10 @@ export default {
   name: "Hearder",
   data() {
     return{
+      searchShow:true, //搜索框是否显示
+      logoIsShow:true, //logo字是否显示
+      navLinkShow:false, //导航显示按钮 是否显示
+      navIsShow:false, //导航是否显示   传递给Start组件
       navList:[{
         text:'主页',
         page:'/home'
@@ -36,18 +41,71 @@ export default {
         text:'文档',
         page:'/start/install'
       }],
-      activeValue:0
+      activeValue:0,
+      screenWidth: null,//收集屏幕宽度
     }
   },
   methods:{
     navTransfrom(index) {
       this.activeValue = index;
+    },
+    navShowClick() {
+      this.navIsShow = !this.navIsShow
+      this.$bus.$emit('navShow',this.navIsShow)
+      this.$bus.$emit('getWindowWidth',this.screenWidth)
+
+    },
+    isSearchShow() {
+      if( this.screenWidth<900 && this.screenWidth > 511) {
+        this.searchShow = !this.searchShow;
+      }
+    }
+  },
+  mounted() {
+    this.screenWidth = document.body.clientWidth
+    window.onresize = () => {
+      return (() => {
+        this.screenWidth = document.body.clientWidth
+      })()
+    }
+  },
+  watch: {
+    screenWidth: {
+      handler: function (val) {
+        if (val < 900) {
+          this.searchShow = false
+          this.logoIsShow = false
+          this.navLinkShow = true
+          this.navIsShow = false
+          // console.log(val+'屏幕宽度小于900px')
+        } else {
+          this.searchShow = true
+          this.logoIsShow = true
+          this.navLinkShow = false
+          this.navIsShow = true
+          // console.log(val+'屏幕宽度大于900px')
+        }
+        this.$bus.$emit('navShow',this.navIsShow)
+        this.$bus.$emit('getWindowWidth',this.screenWidth)
+      },
+      immediate: true,
+      deep:true
+    },
+    '$route.path':function (newValue) {
+        if(newValue === '/start/install') {
+            this.activeValue = 1
+        } else if(newValue === '/home' ) {
+          this.activeValue = 0
+        }
     }
   }
 }
 </script>
 
 <style scoped>
+  @media screen and (max-width:960px){
+
+  }
   .cover {
     width: 100%;
     height: 3.6rem;
@@ -73,6 +131,11 @@ export default {
     /*color: #2c3e50;*/
     line-height: 3.6rem;
   }
+  .cover .logo-img{
+    width: 1.6rem;
+    height: 1.6rem;
+    margin: 1rem ;
+  }
   .cover .navbar {
     height: 100%;
     display: flex;
@@ -86,10 +149,9 @@ export default {
     height: 1.8rem;
     margin: 0.9rem;
     border-radius: 1.3rem;
-    display: flex;
-    justify-content: flex-end;
   }
   .cover .navbar .search-input input {
+    z-index: 22;
     border: none;
     background: none;
     outline: none;
@@ -97,12 +159,17 @@ export default {
     margin-left: 0.8rem;
     font-size: 0.8rem;
     color: #606266;
-    width: 9rem;
+    width: 10rem;
   }
-  .cover .navbar .search-input img{
+  .cover .navbar .search-img {
+    z-index: 21;
     height: 1.5rem;
     width: 1.5rem;
-    margin: 0.2rem 0.4rem 0.4rem 0;
+    margin: 1.1rem 1.2rem 1rem -2.8rem ;
+  }
+  .cover .navbar .search-img:hover {
+    height: 1.6rem;
+    width: 1.6rem;
   }
   .cover .navbar .search-input:focus-within  {
     border: 1px solid #409eff;

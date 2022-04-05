@@ -1,14 +1,22 @@
 <template>
   <div class="cover">
-    <h1><a href="javascript:;">#</a>轮播图</h1>
+    <h1><a href="javascript:;">#</a>日历</h1>
     <h3><a href="javascript:;">#</a>预览</h3>
-    <p>自动播放无缝隙滚动 | 点击按钮节流控制 | 自动播放曲线运动</p>
-    <P class="p">可自定义播放速度，可自定义播放曲线。</P>
+    <h4>{{ year }}年{{ month }}月{{ day }}日</h4>
     <div class="look">
-      <c-rotation
-          :imgData="imgData"
-          :speed="speed"
-      />
+        <c-calendar
+           :animationTime= "animationTime"
+           :slideAnimation ="slideAnimation"
+           :isWeek = "isWeek"
+           :Height = "Height"
+           :HeightAnimation ="HeightAnimation"
+           :etc="etc"
+           :isProgressBar="isProgressBar"
+           @getDateData="getDateData"
+        />
+      <br><br><br>
+      <p>适配移动端 , 适配PC端 , 支持移动端滑动事件 ;</p><br>
+      <p>宽度追加适应 , 支持高雅动画 , 支持年月翻页 , 支持调节行高 . . .</p>
     </div>
     <h3><a href="javascript:;">#</a>代码</h3>
     <section class="components-code" style="background-color:#fafafa;">
@@ -35,31 +43,59 @@
         </thead>
         <tbody>
         <tr>
-          <td scope="row">speed</td>
-          <td>每张图片播放的时间周期，控制播放速度</td>
+          <td scope="row">animationTime</td>
+          <td>动画持续时间</td>
           <td>number</td>
           <td>否</td>
-          <td>2000</td>
+          <td>0.3</td>
         </tr>
         <tr>
-          <td scope="row">imgData</td>
-          <td>图片数据，数组长度无要求</td>
-          <td>array</td>
-          <td>是</td>
-          <td>——</td>
-        </tr>
-        <tr class="tr-font-size">
-          <td scope="row">imgUrl</td>
-          <td>图片链接地址src</td>
-          <td>String</td>
-          <td>是</td>
-          <td>——</td>
-        </tr>
-        <tr class="tr-font-size">
-          <td scope="row">imgLink</td>
-          <td>图片跳转链接</td>
-          <td>String</td>
+          <td scope="row">slideAnimation</td>
+          <td>左右滑动是否需要动画</td>
+          <td>boolean</td>
           <td>否</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td scope="row">isWeek</td>
+          <td>周视图/月视图:false/true</td>
+          <td>boolean</td>
+          <td>否</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td scope="row">Height</td>
+          <td>表格行高</td>
+          <td>number</td>
+          <td>否</td>
+          <td>50</td>
+        </tr>
+        <tr>
+          <td scope="row">HeightAnimation</td>
+          <td>高度变化是否需要动画</td>
+          <td>boolean</td>
+          <td>否</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td scope="row">etc</td>
+          <td>是否延迟 (动画结束在处理数据)</td>
+          <td>boolean</td>
+          <td>是</td>
+          <td>固定式</td>
+        </tr>
+        <tr>
+          <td scope="row">isProgressBar</td>
+          <td>是否需要显示轮博进度条</td>
+          <td>boolean</td>
+          <td>否</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td scope="row">@getDateData=""</td>
+          <td>获取日期函数，返回一个对象值</td>
+          <td>function</td>
+          <td>是</td>
           <td>——</td>
         </tr>
         </tbody>
@@ -67,15 +103,12 @@
     </div>
     <footer class="footer"><p>Copyright © 2022-present  cool UI | GitHub/yngxtt</p></footer>
   </div>
-
 </template>
 
 <script>
-import   CRotation from '../../components/Rotation'
-
+import CCalendar from "../../components/Calendar";
 import { PrismEditor } from "vue-prism-editor";
 import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
-// import highlighting library (you can use any library you want just return html string)
 import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
@@ -84,86 +117,86 @@ import "prismjs/themes/prism-tomorrow.css";
 export default {
   name: "ViewPagination",
   components:{
-    CRotation,
+    CCalendar,
     PrismEditor
   },
   data(){
     return{
-      imgData:[
-        {
-          imgUrl:'img/a.png',
-          imgLink:'javascript:;'
-        },
-        {
-          imgUrl:'img/b.png',
-          imgLink:'javascript:;'
-        },
-        {
-          imgUrl:'img/c.png',
-          imgLink:'javascript:;'
-        },
-        {
-          imgUrl:'img/d.png',
-          imgLink:'javascript:;'
-        },
-        {
-          imgUrl:'img/e.png',
-          imgLink:'javascript:;'
-        }
-      ],
-      speed:2000,
-      pageNo:1,
+      year:0,
+      month:0,
+      day:0,
       code:`
           < template>
-              <c-rotation
-                :speed="speed"
-                :imgData="imgData"
-              />
+              <c-calendar
+               :animationTime= "animationTime"
+               :slideAnimation ="slideAnimation"
+               :isWeek = "isWeek"
+               :Height = "Height"
+               :HeightAnimation ="HeightAnimation"
+               :etc="etc"
+               :isProgressBar="isProgressBar"
+               @getDateData="getDateData"
+            />
             </template>
             <script>
              export default {
                 data(){
                   return{
-                    speed:2000,
-                    imgData:[
-                        {
-                          imgUrl:'../assets/img/a.png',
-                          imgLink:''
-                        },
-                        {
-                          imgUrl:'../assets/img/b.png',
-                          imgLink:''
-                        },
-                        {
-                          imgUrl:'../assets/img/c.png',
-                          imgLink:''
-                        }
-                    ]
+                      animationTime:0.3,
+                      slideAnimation:true,
+                      isWeek: false,
+                      HeightAnimation:true,
+                      etc:true,
+                      isProgressBar:true
                   }
+                },
+                methods:{
+                   getDateData(date) {
+                      console.log(date.day)
+                      console.log(date.month)
+                      console.log(date.year)
+                   }
                 }
-             }
+            }
            </ script>
            `,
       lineNumbers:false,
-      readonly:true
+      readonly:true,
 
+      animationTime:0.3,// 动画持续时间
+      slideAnimation:true,// 左右滑动是否需要动画
+      isWeek: false, // 周视图还是月视图
+      Height: 50,   // 子元素行高
+      HeightAnimation:true,// 高度变化是否需要动画
+      etc:true, // 是否延迟 (动画结束在处理数据)
+      isProgressBar:true  //是否显示进度进度条
     }
   },
   methods:{
-    getPageNo(pageNo) {
-      this.newPageNo = pageNo;
-      this.pageNo = this.newPageNo;
+    getDateData(date) {
+      this.year = date.year
+      this.month = date.month
+      this.day = date.day
+
     },
 
     highlighter(code) {
       return highlight(code, languages.js); //returns html
     }
 
+  },
+  watch: {
+    'Date':function (newVal) {
+        this.Date = newVal
+
+    },
+    deep:true
   }
 }
 </script>
 
 <style lang="less" scoped>
+p {color: #606266;}
 .my-editor {
   color: #409eff;
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
@@ -231,11 +264,6 @@ export default {
     box-shadow: -0.1px 0.5px 0.6px 0.8px rgba(160,160,160,0.6),-0.1px 0.5px 0.6px 0.8px rgba(160,160,160,0.2);
     transition: all 0.8s;
   }
-
-  .tr-font-size {
-    font-size: 0.95rem;
-    color: #606266;
-  }
   .explain {
     table {
       margin: 4rem 0;
@@ -277,12 +305,6 @@ export default {
     color: #c0c4cc;
     text-align: center;
     border-top: 1px #eeeeee solid;
-
   }
-}
-.p {
-  margin: 0.5rem 0;
-  color: #606266;
-  font-size: 0.9rem;
 }
 </style>
