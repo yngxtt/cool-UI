@@ -1,23 +1,25 @@
 <template>
     <div class="cover ">
-      <div class="nav-left clearfix" v-if="navIsShow" >
-        <div class="nav-item">
-          <p>入 门</p>
-          <ul>
-            <li v-for="(item,index) in navStart" :key="index" @click="navSwitch(item.id)" :class="{active:active==item.id}">
-              <router-link :to="item.page">{{item.text}}</router-link>
-            </li>
-          </ul>
-        </div>
-        <div class="nav-item">
-          <p>组 件</p>
-          <ul>
-            <li v-for="(item,index) in navComponents" :key="index"  @click="navSwitch(item.id)" :class="{active:active==item.id}">
-              <router-link :to="item.page">{{item.text}}</router-link>
-            </li>
-          </ul>
-        </div>
-      </div>
+<!--      <transition name="nav">-->
+          <div class="nav-left clearfix" v-if="navIsShow" >
+            <div class="nav-item">
+              <p>入 门</p>
+              <ul>
+                <li v-for="(item,index) in navStart" :key="index" @click="navSwitch(item.id)" :class="{active:active==item.id}">
+                  <router-link :to="item.page">{{item.text}}</router-link>
+                </li>
+              </ul>
+            </div>
+            <div class="nav-item">
+              <p>组 件</p>
+              <ul>
+                <li v-for="(item,index) in navComponents" :key="index"  @click="navSwitch(item.id)" :class="{active:active==item.id}">
+                  <router-link :to="item.page">{{item.text}}</router-link>
+                </li>
+              </ul>
+            </div>
+          </div>
+<!--      </transition>-->
       <div class="router-view">
         <router-view></router-view>
       </div>
@@ -30,7 +32,7 @@ export default {
   name: "Start",
   data() {
     return{
-      navIsShow:false, //导航是否显示
+      navIsShow:true, //导航是否显示
       navStart:[{
         id:0,
         text:'安装',
@@ -42,17 +44,25 @@ export default {
       }],
       navComponents:[{
         id:2,
-        text:'Calendar - 日历',
+        text:'日    历 - Calendar',
         page:'/start/calendar'
       },{
         id:3,
-        text:'Rotation - 轮播图',
+        text:'轮播图 - Rotation',
         page:'/start/rotation'
       },{
         id:4,
-        text:'Pagination - 分页',
+        text:'分页器 - Pagination',
         page:'/start/page'
-      }],
+      },{
+        id:5,
+        text:'倒计时 - Countdown',
+        page:'/start/countdown'
+      },{
+        id:6,
+        text:'栏切换 - Tab',
+        page:'/start/etc'
+    }],
       active:0,
       windowWidth:1000
     }
@@ -63,19 +73,11 @@ export default {
       this.active = id;
       if(this.windowWidth < 960) {
         this.navIsShow = false;
+        this.$bus.$emit('getNavShowValue',this.navIsShow);
       }
     },
     navShow(value) {
-      if( this.windowWidth < 960 ){
-        if( this.navIsShow === value) {
-          this.navIsShow = !value;
-        } else {
-          this.navIsShow = value;
-        }
-
-      } else {
-        this.navIsShow = value;
-      }
+      this.navIsShow = value;
 
     },
     windowW(value) {
@@ -85,16 +87,12 @@ export default {
     }
   },
   mounted() {
-    this.$bus.$on('navShow',this.navShow,
-      //   (value)=>{
-      // console.log(value)
-    // }
-    );
-    this.$bus.$on('getWindowWidth',this.windowW
-        //   (value)=>{
-        // console.log(value)
-        // }
-    );
+    this.$bus.$on('navShow',this.navShow,);
+    this.$bus.$on('getWindowWidth',this.windowW);
+  },
+  beforeDestroy() {
+    this.$bus.$off('navShow')
+    this.$bus.$off('getWindowWidth')
   }
 }
 </script>
@@ -109,9 +107,13 @@ export default {
   clear: both;
   visibility: hidden;
 }
-.cover {
+  .cover {
 
-}
+  }
+
+
+
+
   .nav-left {
     font-size: 16px;
     background-color: #fff;

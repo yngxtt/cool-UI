@@ -70,8 +70,9 @@ export default {
         border-bottom: 1px solid #c0c4cc;
         padding-bottom: 0.5rem;
         margin: 2rem 0 3rem 0;
+        font-size: 1.6rem;
         a {
-          margin-left: -4.2rem;
+          margin-left: -5.5rem;
           color: #409eff;
           display: none;
         }

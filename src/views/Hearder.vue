@@ -3,7 +3,7 @@
   <div class="cover">
     <div class="logo">
       <img @click="navShowClick" v-if="navLinkShow" class="logo-img" src="../../public/navIcon.svg" >
-      <span v-if="logoIsShow">Cool UI</span>
+      <span v-if="logoIsShow"><router-link c  to="/home">Cool UI</router-link></span>
     </div>
     <div class="navbar">
       <div class="search-input">
@@ -33,7 +33,7 @@ export default {
       searchShow:true, //搜索框是否显示
       logoIsShow:true, //logo字是否显示
       navLinkShow:false, //导航显示按钮 是否显示
-      navIsShow:false, //导航是否显示   传递给Start组件
+      navIsShow:null, //导航是否显示   传递给Start组件
       navList:[{
         text:'主页',
         page:'/home'
@@ -67,7 +67,13 @@ export default {
       return (() => {
         this.screenWidth = document.body.clientWidth
       })()
-    }
+    },
+        this.$bus.$on('getNavShowValue',(value)=>{
+            this.navIsShow = value
+        })
+  },
+  beforeDestroy() {
+    this.$bus.$off('getNavShowValue')
   },
   watch: {
     screenWidth: {
@@ -92,10 +98,10 @@ export default {
       deep:true
     },
     '$route.path':function (newValue) {
-        if(newValue === '/start/install') {
-            this.activeValue = 1
-        } else if(newValue === '/home' ) {
-          this.activeValue = 0
+        if(newValue === '/home') {
+            this.activeValue = 0
+        } else {
+          this.activeValue = 1
         }
     }
   }

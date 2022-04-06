@@ -182,8 +182,9 @@ export default {
         border-bottom: 1px solid #c0c4cc;
         padding-bottom: 0.5rem;
         margin: 2rem 0;
+        font-size: 1.6rem;
         a {
-          margin-left: -1rem;
+          margin-left: -1.25rem;
           color: #409eff;
           padding-right: 0.3rem;
           display: none;
