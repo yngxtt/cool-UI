@@ -1,11 +1,12 @@
 <template>
     <div class="cover ">
 <!--      <transition name="nav">-->
-          <div class="nav-left clearfix" v-if="navIsShow" >
+          <div class="nav-left clearfix"  ref="nav">
+            <div class="gbc" ref="gbc"></div>
             <div class="nav-item">
               <p>入 门</p>
               <ul>
-                <li v-for="(item,index) in navStart" :key="index" @click="navSwitch(item.id)" :class="{active:active==item.id}">
+                <li ref="item" v-for="(item,index) in navStart" :key="index" @click="navSwitch(item.id)" :class="{active:active==item.id}">
                   <router-link :to="item.page">{{item.text}}</router-link>
                 </li>
               </ul>
@@ -13,7 +14,7 @@
             <div class="nav-item">
               <p>组 件</p>
               <ul>
-                <li v-for="(item,index) in navComponents" :key="index"  @click="navSwitch(item.id)" :class="{active:active==item.id}">
+                <li ref="item" v-for="(item,index) in navComponents" :key="index"  @click="navSwitch(item.id)" :class="{active:active==item.id}">
                  <router-link :to="item.page">{{item.text}}</router-link>
                 </li>
               </ul>
@@ -61,7 +62,7 @@ export default {
       },{
         id:6,
         text:'栏切换 - Tab',
-        page:'/start/etc'
+        page:'/start/tabs'
     }],
       active:0,
       windowWidth:1000
@@ -71,6 +72,10 @@ export default {
     //导航切换
     navSwitch(id) {
       this.active = id;
+
+      this.$refs.gbc.style.top = this.$refs.item[id].offsetTop + 'px';
+      console.log(this.$refs.item[0].offsetTop);
+      // console.log(index)
       if(this.windowWidth < 960) {
         this.navIsShow = false;
         this.$bus.$emit('getNavShowValue',this.navIsShow);
@@ -78,18 +83,25 @@ export default {
     },
     navShow(value) {
       this.navIsShow = value;
-
     },
     windowW(value) {
       this.windowWidth = value
-
-
+    }
+  },
+  watch:{
+    'navIsShow':function (val) {
+      if(val) {
+        this.$refs.nav.style.left = '0'
+      } else {
+        this.$refs.nav.style.left = '-246px'
+      }
     }
   },
   mounted() {
     this.$bus.$on('navShow',this.navShow,);
     this.$bus.$on('getWindowWidth',this.windowW);
   },
+
   beforeDestroy() {
     this.$bus.$off('navShow')
     this.$bus.$off('getWindowWidth')
@@ -117,20 +129,21 @@ export default {
   .nav-left {
     font-size: 16px;
     background-color: #fff;
-    width: 16rem;
+    width: 246px;
     position: fixed;
     z-index: 10;
     margin: 0;
-    top: 3.6rem;
+    top: 2.3rem;
     left: 0;
     bottom: 0;
     box-sizing: border-box;
     border-right: 1px solid #eaecef;
     overflow-y: auto;
+    transition: all 800ms;
   }
   .nav-left .nav-item p {
     margin-top:1rem;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.8rem;
     font-size: 1.2rem;
     font-weight: 600;
     padding-left: 1.5rem;
@@ -140,15 +153,25 @@ export default {
     font-size: 1rem;
     font-weight: 500;
     margin-top:  0.3rem;
-    padding-top: 0.2rem ;
+    padding-top: 0.2rem;
     padding-bottom: 0.2rem;
     padding-left: 2rem;
+    height: 1.6rem;
+  }
+  .gbc {
+    position: relative;
+    background-color: #409eff;
+    width: 0.3rem;
+    height: 1.9rem;
+    top:85px;
+    transition: all 450ms;
   }
   .nav-left .nav-item li a:hover {
     color: #409eff;
   }
   .nav-left .nav-item  li:hover {
     background-color: rgba(220,220,220,0.1);
+    transition: all 350ms;
   }
   .router-view{
     position: absolute;
@@ -160,7 +183,6 @@ export default {
   }
   .active {
     color: #409eff;
-    border-right: 2px solid #409eff;
     padding-left: 1.8rem;
     background-color: rgba(220,220,220,0.2);
   }
@@ -169,7 +191,7 @@ export default {
   }
   @media screen and (max-width:1146px){
     .router-view {
-     width: 75%;
+      width: 75%;
     }
   }
 @media screen and (max-width:1042px){

@@ -4,10 +4,10 @@
       <div class="logo-img"><img src="../../public/logoText.png" /></div>
       <div class="slogan">
         <div class="slogan-one">轻 量 化</div>
-        <div class="slogan-two">U I 组 件 库</div>
+        <div class="slogan-two">V u e  U I 组 件 库</div>
         <div class="slogan-there">
           <a href="https://cn.vuejs.org/" target="_blank">
-            <span>Vue UI 组件库</span>
+            <span>Vue 官网</span>
           </a>
           <a  href="https://blog.csdn.net/nilmao/" target="_blank">
            <span class="svg">
@@ -25,7 +25,7 @@
     </div>
     <div class="button-text">
       <h1>Cool UI  官方网站</h1>
-      <p>一 个 Cool 的 UI 组 件 库</p>
+      <p>一 个超 Cool 的 UI 组 件 库</p>
       <span @click="goStart">快速上手 →</span>
     </div>
     <div class="info">
@@ -72,7 +72,7 @@ export default {
   }
   .logo {
     margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     display: flex;
     justify-content: center;
   }
@@ -132,6 +132,7 @@ export default {
       height: 12rem;
       margin: 2rem;
   }
+
   .button-text h1 {
     font-size: 2.1rem;
   }
@@ -154,14 +155,12 @@ export default {
   .info {
     border-top: 1px solid #eaecef;
     border-bottom: 1px solid #eaecef;
-    padding: 1.2rem 0rem;
-    margin-top: 1.6rem;
+    padding: 1.2rem 0;
+    margin:  2.2rem auto 2rem auto;
     display:  flex;
     flex-wrap: wrap;
     justify-content: space-between;
     max-width:960px;
-    margin-left:  auto;
-    margin-right: auto;
     border-left: rgba(250,250,250,0) solid 1.5rem;
     border-right: rgba(250,250,250,0) solid 1.5rem;
   }
@@ -202,7 +201,14 @@ export default {
     }
     .slogan-there {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      margin: 2rem;
+
+    }
+    .slogan-there a {
+      width: 50%;
+      /*display: flex;*/
+      /*flex-direction: column;*/
     }
     .logo {
       display: flex;
@@ -216,6 +222,14 @@ export default {
     .slogan-two {
       display: flex;
       justify-content: center;
+    }
+    .button-text {
+      margin-top: 0;
+    }
+  }
+  @media screen and (max-width:500px) {
+    .slogan-there {
+      margin: 2rem 0;
     }
   }
 </style>

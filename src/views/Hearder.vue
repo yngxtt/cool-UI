@@ -15,7 +15,7 @@
           <router-link :class="{active:activeValue == index}" :to="nav.page">{{nav.text}}</router-link>
         </template>
       </div>
-      <div class="nav-text github">
+      <div class="github">
         <a target="_blank" href="https://github.com/yngxtt/cool-UI">GitHub</a>
         <img src="../../public/link.svg" />
       </div>
@@ -59,7 +59,7 @@ export default {
       }
     },
     isSearchShow() {
-      if( this.screenWidth<900 && this.screenWidth > 511) {
+      if( this.screenWidth<900 ) {
         this.searchShow = !this.searchShow;
       }
     }
@@ -198,7 +198,10 @@ export default {
     padding: 1.05rem 0;
     margin: 0 0.5rem;
   }
-
+  .github {
+    display: flex;
+    justify-content: flex-end;
+  }
   .cover .navbar .github a {
     display: inline-block;
     margin: 0;
@@ -213,5 +216,13 @@ export default {
   }
   .active {
     border-bottom: 2px solid #409eff;
+  }
+  @media screen and (max-width:560px) {
+    .github {
+      display: none;
+    }
+    .navbar {
+      margin-right: 1rem;
+    }
   }
 </style>

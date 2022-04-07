@@ -7,7 +7,8 @@ import ViewFast from "../views/Start/ViewFast";
 import ViewRotation from "../views/Start/ViewRotation";
 import ViewCalendar from "../views/Start/ViewCalendar";
 import ViewCountdown from "../views/Start/ViewCountdown";
-import Etc from "../views/Start/Etc";
+// import Etc from "../views/Start/Etc";
+import viewTab from "../views/Start/viewTab";
 export default [
     {
         //首页
@@ -52,8 +53,8 @@ export default [
        },
        //等待警告
        {
-           path:'etc',
-           component:Etc
+           path:'tabs',
+           component:viewTab
        },
 
             //重定项，项目初始访问，定向到首页
