@@ -316,7 +316,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .container {
-  --grid-columns: repeat(4, 105px);
+  --grid-columns: repeat(4, 90px);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -412,7 +412,7 @@ export default {
   vertical-align: middle;
 }
 
-@media screen and (min-width: 355px) and (max-width: 360px) {
+@media screen and (min-width: 280px) and (max-width: 360px) {
   .container {
     --grid-columns: repeat(4, 70px);
   }

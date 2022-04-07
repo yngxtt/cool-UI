@@ -16,36 +16,37 @@ export default {
   props:['inputTime','title','isCountDown','isShowDay','isShowHour','isShowMinute','isShowSecond'],
   data() {
     return{
-        inputTimeData:'2022-05-01 00:00:00',//输入的时间
+        inputTimeData: this.inputTime || '2022-10-01 00:00:00',//输入的时间
         Day:0,        //天
         Hour:0,       //时
         Minute:0,     //分
         Second: 0,    //秒
-        TitleText: '倒计时',//标题
-        countDown: false,
+        TitleText: this.title || '倒计时',//标题
+        countDown: this.isCountDown || false,
         times:10,
-        isDay:true,
-        isHour:true,
-        isMinute:true,
-        isSecond:true,
+        isDay: this.isShowDay || true,
+        isHour:this.isShowHour || true,
+        isMinute: this.isShowMinute || true,
+        isSecond: this.isShowSecond || true
     }
   },
   created() {
-      this.TitleText = this.title;
-      this.inputTimeData = this.inputTime;
-      this.countDown = this.isCountDown;
-      this.isDay = this.isShowDay
-      this.isHour = this.isShowHour
-      this.isMinute = this.isShowMinute
-      this.isSecond = this.isShowSecond
+      // this.TitleText = this.title;
+      // this.inputTimeData = this.inputTime;
+      // this.countDown = this.isCountDown;
+      // this.isDay = this.isShowDay
+      // this.isHour = this.isShowHour
+      // this.isMinute = this.isShowMinute
+      // this.isSecond = this.isShowSecond
 
   },
   mounted() {
-    this.getTime()
+    this.getTime();
   },
   methods: {
       getTime() {
         let _this = this;
+        clearInterval(_this.timer);
         let inputTime = +new Date(this.inputTimeData);
         this.timer = setInterval(function () {
             let nowTime = +new Date(); // 返回的是当前时间总的毫秒数
@@ -64,6 +65,7 @@ export default {
             _this.times = parseInt(times);
             if(_this.times < 1){//时间剩余为0，清除定时器
               clearInterval(_this.timer);
+              _this.$emit('EndTiming');
             }
         },1000);
 

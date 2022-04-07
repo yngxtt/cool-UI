@@ -71,6 +71,8 @@ export default {
     text-align: center;
   }
   .logo {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     display: flex;
     justify-content: center;
   }
@@ -207,7 +209,8 @@ export default {
       flex-direction: column;
     }
     .logo img {
-      margin-bottom: 1.5rem;
+      margin-bottom: 0rem;
+      margin-top: 0rem;
     }
     .slogan-one,
     .slogan-two {

@@ -3,8 +3,13 @@
     <h1><a href="javascript:;">#</a>分页器</h1>
     <h3><a href="javascript:;">#</a>预览</h3>
     <p>点击页码试试，页码有逻辑可以正常跳转...</p>
+    <div class="goods-cover">
+      <div class="goods">
+        <div class="good"  v-for="(good,index) in goods[pageNo-1]" :key="index"><span>{{good}}</span></div>
+      </div>
+    </div>
     <div class="look">
-      <c-pagination :pageNo="pageNo" :pageSize="10" :total="100" :continues="5" @getPageNo="getPageNo"/>
+      <c-pagination :pageNo="pageNo" :pageSize="12" :total="102" :continues="5" @getPageNo="getPageNo"/>
     </div>
     <h3><a href="javascript:;">#</a>代码</h3>
     <section class="components-code" style="background-color:#fafafa;">
@@ -59,11 +64,11 @@
           <td>5</td>
         </tr>
         <tr>
-          <td scope="row">@getPageNo="getPageNo"</td>
+          <td scope="row">@getPageNo=""</td>
           <td>切换页码时触发的回调函数，页码作为参数返回</td>
           <td>function</td>
           <td>是</td>
-          <td>固定式</td>
+          <td>——</td>
         </tr>
         </tbody>
       </table>
@@ -99,9 +104,9 @@ export default {
           < template>
               <c-pagination
                   :pageNo="pageNo"
-                  :pageSize="10"
-                  :total="100"
-                  :continues="5"
+                  :pageSize="pageSize"
+                  :total="total"
+                  :continues="continues"
                   @getPageNo="getPageNo"
                 />
             </template>
@@ -110,6 +115,9 @@ export default {
                 data(){
                   return{
                     pageNo:1,
+                    total:102,
+                    pageSize:12,
+                    continues:5
                   }
                 },
                 methods:{
@@ -121,8 +129,19 @@ export default {
             }
            </ script>
            `,
-        lineNumbers:false,
-        readonly:true
+      lineNumbers:false,
+      readonly:true,
+      goods:[
+          ['01','02','03','04','05','06','07','08','09',10,11,12],
+          [13,14,15,16,17,18,19,20,21,22,23,24],
+          [25,26,27,28,29,30,31,32,33,34,35,36],
+          [37,38,39,40,41,42,43,44,45,46,47,48],
+          [49,50,51,52,53,54,55,56,57,58,59,60],
+          [61,62,63,64,65,66,67,68,69,70,71,72],
+          [73,74,75,76,77,78,79,80,81,82,83,84],
+          [85,86,87,88,89,90,91,92,93,94,95,96],
+          [97,98,99,'00','01','02']
+      ]
 
     }
   },
@@ -156,6 +175,32 @@ export default {
       /*background-color: #ccc;*/
       margin-left: auto;
       margin-right: auto;
+
+      .goods-cover {
+          padding-top: 3rem;
+          width: 80%;
+          height: 40%;
+          margin: 0 auto;
+        .goods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+
+          .good {
+            background-color: rgba(190,195,200,0.2);
+            padding: 1rem 3rem;
+            margin: 0.1rem;
+            border-radius: 9px;
+            span {
+              font-size: 3rem;
+              color: #999999;
+              font-family: Helvetica;
+            }
+          }
+        }
+      }
+
       .look {
         display: block;
         margin: 4rem 0;

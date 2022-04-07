@@ -81,8 +81,8 @@
           <td scope="row">etc</td>
           <td>是否延迟 (动画结束在处理数据)</td>
           <td>boolean</td>
-          <td>是</td>
-          <td>固定式</td>
+          <td>否</td>
+          <td>false</td>
         </tr>
         <tr>
           <td scope="row">isProgressBar</td>

@@ -35,10 +35,10 @@ export default {
       navLinkShow:false, //导航显示按钮 是否显示
       navIsShow:null, //导航是否显示   传递给Start组件
       navList:[{
-        text:'主页',
+        text:'主 页',
         page:'/home'
       },{
-        text:'文档',
+        text:'文 档',
         page:'/start/install'
       }],
       activeValue:0,
@@ -50,10 +50,13 @@ export default {
       this.activeValue = index;
     },
     navShowClick() {
-      this.navIsShow = !this.navIsShow
-      this.$bus.$emit('navShow',this.navIsShow)
-      this.$bus.$emit('getWindowWidth',this.screenWidth)
-
+      if(this.$route.path==='/home') {
+        this.$router.push('/start')
+      }else {
+        this.navIsShow = !this.navIsShow
+        this.$bus.$emit('navShow',this.navIsShow)
+        this.$bus.$emit('getWindowWidth',this.screenWidth)
+      }
     },
     isSearchShow() {
       if( this.screenWidth<900 && this.screenWidth > 511) {
@@ -102,6 +105,9 @@ export default {
             this.activeValue = 0
         } else {
           this.activeValue = 1
+        }
+        if(this.screenWidth>900) {
+          this.$bus.$emit('navShow',true)
         }
     }
   }

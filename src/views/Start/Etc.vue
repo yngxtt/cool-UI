@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="app">
       <div class="test" v-show="testShow">
         <h1>等 待 更 新 . . .</h1>
-        <p>娱 乐 时 间   |   欢 迎 开 始  →  <span>2 0 4 8 小 游 戏 </span>  |   经 典 小 游 戏</p>
       </div>
+      <p>欢 迎 试 用  →  <span>基 与 Vue 的 2 0 4 8 小 游 戏 </span> </p>
       <game></game>
     </div>
 </template>
@@ -35,7 +35,7 @@ export default {
   .test {
     margin: 1rem;
     padding: 1rem;
-    border-bottom: #c0c4cc 3px solid;
+    border-bottom: #c0c4cc 1px solid;
     -webkit-transition:-webkit-transform 1s,background 1s,width 1s,height 1s,font-size 1s;
     -o-transition-property:width,height,-o-transform,background,font-size;
     -o-transition-duration:1s,1s,1s,1s,1s;
@@ -46,13 +46,17 @@ export default {
   }
   .test h1 {
     color: #0c5460;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    margin-top:6rem;
+    font-size: 5rem;
+    font-weight: 200;
   }
-  .test p {
+  .app p {
+    margin: 3rem;
     color: #95999c;
     font-size: 1.5rem;
   }
-  .test p span {
+  .app p span {
     color: #409eff;
   }
 </style>

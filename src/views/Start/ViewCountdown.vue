@@ -2,7 +2,10 @@
   <div class="cover">
     <h1><a href="javascript:;">#</a>倒计时</h1>
     <h3><a href="javascript:;">#</a>预览</h3>
-    <p class="title">倒计时</p>
+    <p class="title">倒 计 时
+
+      <span v-if="warningIsShow">{{warning}}</span>
+    </p>
     <div class="look">
       <c-countdown
           :inputTime="inputTime"
@@ -12,9 +15,10 @@
           :isShowHour="isShowHour"
           :isShowMinute="isShowMinute"
           :isShowSecond="isShowSecond"
+          @EndTiming = "EndTiming()"
       />
     </div>
-    <p class="title">计时</p>
+    <p class="title">计 时 </p>
     <div class="look">
       <c-countdown
           :inputTime="inputTimeT"
@@ -74,42 +78,49 @@
               <td>标题</td>
               <td>String</td>
               <td>是</td>
-              <td>——</td>
+              <td>倒计时</td>
             </tr>
             <tr>
               <td scope="row">isCountDown</td>
               <td>是否是倒计时，ture:倒计时/false:计时</td>
               <td>boolean</td>
-              <td>是</td>
-              <td>——</td>
+              <td>否</td>
+              <td>true</td>
             </tr>
 
             <tr>
               <td scope="row">isShowDay</td>
               <td>是否显示天数</td>
               <td>boolean</td>
-              <td>是</td>
-              <td>——</td>
+              <td>否</td>
+              <td>true</td>
             </tr>
             <tr>
               <td scope="row">isShowHour</td>
               <td>是否显示秒钟</td>
               <td>boolean</td>
-              <td>是</td>
-              <td>——</td>
+              <td>否</td>
+              <td>true</td>
             </tr>
             <tr>
               <td scope="row">isShowMinute</td>
               <td>是否显示分钟</td>
               <td>boolean</td>
-              <td>是</td>
-              <td>——</td>
+              <td>否</td>
+              <td>true</td>
             </tr>
             <tr>
               <td scope="row">isShowSecond</td>
               <td>是否显示秒钟</td>
               <td>boolean</td>
-              <td>是</td>
+              <td>否</td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td scope="row">@EndTiming=“”</td>
+              <td>计时结束触发的回调函数</td>
+              <td>function</td>
+              <td>否</td>
               <td>——</td>
             </tr>
         </tbody>
@@ -145,6 +156,11 @@ export default {
                 :inputTime="inputTime"
                 :title="title"
                 :isCountDown="isCountDown"
+                :isShowDay="isShowDay"
+                :isShowHour="isShowHour"
+                :isShowMinute="isShowMinute"
+                :isShowSecond="isShowSecond"
+                @EndTiming = "EndTiming"
               />
             </template>
             <script>
@@ -158,10 +174,17 @@ export default {
                       isShowHour:true,
                       isShowMinute:true,
                       isShowSecond:true,
+                      @EndTiming = "EndTiming"
+                  }
+                },
+                methods:{
+                  EndTiming(){
+                    console.log('倒计时结束')
                   }
                 }
              }
-           </ script>
+           < /script>
+
            `,
         codeT:`
           < template>
@@ -183,13 +206,18 @@ export default {
                       isShowMinute:true,
                       isShowSecond:true
                   }
+                },
+                methods:{
+                  EndTiming(){
+                    console.log('计时结束')
+                  }
                 }
              }
            </ script>
            `,
       lineNumbers:false,
       readonly:true,
-      inputTime:'2022-10-01 00:00:00',
+      inputTime:'2022-10-01 08:27:00',
       title:'倒计时',
       isCountDown:true,
       isShowDay:true,
@@ -200,19 +228,27 @@ export default {
       inputTimeT:'2021-10-01 00:00:00',
       titleT:'计时',
       isCountDownT:false,
+
+      warning:'',
+      warningIsShow:false
     }
   },
   methods:{
+
+    EndTiming(){
+      this.warning = '**倒计时结束！**';
+      this.warningIsShow = true;
+    },
     getPageNo(pageNo) {
       this.newPageNo = pageNo;
       this.pageNo = this.newPageNo;
     },
 
     highlighter(code) {
-      return highlight(code, languages.js); //returns html
+      return highlight(code,languages.js); //returns html
     }
 
-  }
+  },
 }
 </script>
 

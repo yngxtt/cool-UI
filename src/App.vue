@@ -42,6 +42,10 @@ html { overflow-y: scroll; }
   margin: 0;
   padding: 0;
 }
+body {
+  margin: 0;
+  padding: 0;
+}
 ul {
   padding: 0;
   margin: 0;

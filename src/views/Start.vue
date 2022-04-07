@@ -14,7 +14,7 @@
               <p>组 件</p>
               <ul>
                 <li v-for="(item,index) in navComponents" :key="index"  @click="navSwitch(item.id)" :class="{active:active==item.id}">
-                  <router-link :to="item.page">{{item.text}}</router-link>
+                 <router-link :to="item.page">{{item.text}}</router-link>
                 </li>
               </ul>
             </div>
@@ -32,7 +32,7 @@ export default {
   name: "Start",
   data() {
     return{
-      navIsShow:true, //导航是否显示
+      navIsShow:false, //导航是否显示
       navStart:[{
         id:0,
         text:'安装',
@@ -48,12 +48,12 @@ export default {
         page:'/start/calendar'
       },{
         id:3,
-        text:'轮播图 - Rotation',
-        page:'/start/rotation'
-      },{
-        id:4,
         text:'分页器 - Pagination',
         page:'/start/page'
+      },{
+        id:4,
+        text:'轮播图 - Rotation',
+        page:'/start/rotation'
       },{
         id:5,
         text:'倒计时 - Countdown',
@@ -128,19 +128,27 @@ export default {
     border-right: 1px solid #eaecef;
     overflow-y: auto;
   }
-  .nav-left .nav-item {
-    padding: 1rem;
-  }
   .nav-left .nav-item p {
-    font-size: 1.1rem;
+    margin-top:1rem;
+    margin-bottom: 0.3rem;
+    font-size: 1.2rem;
     font-weight: 600;
+    padding-left: 1.5rem;
   }
   .nav-left .nav-item li {
     display: block;
     font-size: 1rem;
     font-weight: 500;
-    margin-top:  0.5rem;
-    padding-left: 1rem;
+    margin-top:  0.3rem;
+    padding-top: 0.2rem ;
+    padding-bottom: 0.2rem;
+    padding-left: 2rem;
+  }
+  .nav-left .nav-item li a:hover {
+    color: #409eff;
+  }
+  .nav-left .nav-item  li:hover {
+    background-color: rgba(220,220,220,0.1);
   }
   .router-view{
     position: absolute;
@@ -148,20 +156,36 @@ export default {
     width: 86%;
     text-align: center;
     top: 3.6rem;
+    padding: 1rem;
   }
   .active {
     color: #409eff;
-    border-left: 2px solid #409eff;
+    border-right: 2px solid #409eff;
+    padding-left: 1.8rem;
+    background-color: rgba(220,220,220,0.2);
   }
   .active a {
     color: #409eff;
   }
-  @media screen and (max-width:960px){
+  @media screen and (max-width:1146px){
     .router-view {
-      width: 96%;
+     width: 75%;
+    }
+  }
+@media screen and (max-width:1042px){
+  .router-view {
+    width: 70%;
+  }
+}
+  @media screen and (max-width:900px){
+    .router-view {
+      width: 95%;
       top:0;
-      margin: 2rem auto;
+      margin: 3rem auto;
       /*padding: 0 0.5rem;*/
+    }
+    .nav-left {
+      width: 14rem;
     }
   }
 

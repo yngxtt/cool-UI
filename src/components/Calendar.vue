@@ -70,7 +70,7 @@
         <div
             class="touch-container"
             :style="`height: ${touchAreaHeight - touchAreaPadding}px`">
-          <div class="touch-item"></div>
+          <div class="touch-item" @click="isShowWeek" ><span v-if="!isWeekView">∧</span><span v-if="isWeekView">∨</span></div>
         </div>
       </section>
     </section>
@@ -135,6 +135,10 @@ export default {
     },
   },
   methods: {
+    //周视图 | 月视图 切换
+    isShowWeek() {
+      this.isWeekView = !this.isWeekView
+    },
     getDate() {
       this.$emit('getDateData',this.selectData)
     },
@@ -523,7 +527,6 @@ export default {
   border-radius: 50%;
   background-color: rgba(200,200,200,0.8);
 }
-
 .calendar-item {
   display: block;
   width: 40px;
@@ -597,10 +600,26 @@ export default {
   justify-content: center;
 }
 .touch-item {
-  width: 40px;
-  height: 5px;
-  background: #2b4450;
+  width: 100px;
+  height: 12px;
+  background-color: rgba(160,160,160,0.4);
   border-radius: 100px;
   opacity: 0.6;
+  text-align: center;
+}
+.touch-item:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.touch-item span {
+  display: block;
+  color: #fafafa;
+  font-size: 1rem;
+  line-height: 10px;
+  transform: scale(2.8,1);
+  font-weight: 260;
+}
+.touch-item span:hover {
+  color: #000000;
 }
 </style>
