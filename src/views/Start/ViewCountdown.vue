@@ -30,7 +30,7 @@
           :isShowSecond="isShowSecond"
       />
     </div>
-    <h3><a href="javascript:;">#</a>代码</h3>
+    <h3><a href="javascript:;">#</a>使用方法</h3>
     <p class="title">倒计时</p>
     <section class="components-code" style="background-color:#fafafa;">
       <prism-editor

@@ -18,7 +18,7 @@
       <p>适配移动端 , 适配PC端 , 支持移动端滑动事件 ;</p><br>
       <p>宽度追加适应 , 支持高雅动画 , 支持年月翻页 , 支持调节行高 . . .</p>
     </div>
-    <h3><a href="javascript:;">#</a>代码</h3>
+    <h3><a href="javascript:;">#</a>使用方法</h3>
     <section class="components-code" style="background-color:#fafafa;">
       <prism-editor
           class="my-editor height-300"

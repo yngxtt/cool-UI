@@ -45,25 +45,25 @@ export default {
       }],
       navComponents:[{
         id:2,
+        text:'栏切换 - Tab',
+        page:'/start/tabs'
+      },{
+        id:3,
         text:'日    历 - Calendar',
         page:'/start/calendar'
       },{
-        id:3,
+        id:4,
         text:'分页器 - Pagination',
         page:'/start/page'
       },{
-        id:4,
+        id:5,
         text:'轮播图 - Rotation',
         page:'/start/rotation'
       },{
-        id:5,
+        id:6,
         text:'倒计时 - Countdown',
         page:'/start/countdown'
-      },{
-        id:6,
-        text:'栏切换 - Tab',
-        page:'/start/tabs'
-    }],
+      }],
       active:0,
       windowWidth:1000
     }
@@ -158,13 +158,18 @@ export default {
     padding-left: 2rem;
     height: 1.6rem;
   }
+.nav-left .nav-item li a {
+  display: block;
+
+  height: 1.6rem;
+}
   .gbc {
     position: relative;
     background-color: #409eff;
     width: 0.3rem;
     height: 1.9rem;
     top:85px;
-    transition: all 450ms;
+    transition: all 800ms;
   }
   .nav-left .nav-item li a:hover {
     color: #409eff;

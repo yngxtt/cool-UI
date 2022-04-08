@@ -10,7 +10,7 @@
           :speed="speed"
       />
     </div>
-    <h3><a href="javascript:;">#</a>代码</h3>
+    <h3><a href="javascript:;">#</a>使用方法</h3>
     <section class="components-code" style="background-color:#fafafa;">
       <prism-editor
           class="my-editor height-300"

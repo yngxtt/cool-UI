@@ -2,11 +2,10 @@
   <div class="cover">
     <h1><a href="javascript:;">#</a>分页器</h1>
     <h3><a href="javascript:;">#</a>预览</h3>
-    <p>点击页码试试，页码有逻辑可以正常跳转...</p>
     <div class="look">
       <tabs-demo></tabs-demo>
     </div>
-    <h3><a href="javascript:;">#</a>代码</h3>
+    <h3><a href="javascript:;">#</a>使用方法</h3>
     <section class="components-code" style="background-color:#fafafa;">
       <prism-editor
           class="my-editor height-300"
@@ -17,7 +16,14 @@
           :line-numbers="lineNumbers"
       />
     </section>
-    <h3><a href="javascript:;">#</a>说明</h3>
+    <p class="text">此组件的 <span>&lt;i-tabs&gt;</span> <span>&lt;i-tabs-item&gt;</span> <span>&lt;i-tabs-pane&gt;</span> name值必须要有一 一对应的对应关系。</p>
+    <h3><a href="javascript:;">#</a>选项</h3>
+      <p class="text"><span>&lt;i-tabs&gt;</span>: 需要设置 selected 属性来确定默认标签。默认高亮状态</p>
+      <p class="text">可以这样写: :selected.sync="selectedTab",其中 selectedTab 是需要传递的默认值。</p>
+      <p class="text"><span>&lt;i-tabs-head&gt;</span> 和 <span>&lt;i-tabs-body&gt;</span>:是&lt;i-tabs&gt;标签的子组件，错误嵌套会得到一个警告。</p>
+      <p class="text"><span>&lt;c-icon&gt;</span>: 可以在标题区域添加图标;</p>
+      <p class="text"> <span>&lt;i-tabs-item&gt;:</span> 标题标签  disabled 属性可以设置该标签的不可用状态。</p>
+    <p class="text"><span>&lt;c-tabs-pane&gt;</span>: 区域内容标签;</p>
     <div class="explain">
       <table class="table ">
         <thead>
@@ -31,37 +37,23 @@
         </thead>
         <tbody>
         <tr>
-          <td scope="row">pageNo</td>
-          <td>当前页码</td>
-          <td>number</td>
-          <td>是</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td scope="row">pageSize</td>
-          <td>每页指定显示的数量</td>
-          <td>number</td>
+          <td scope="row">name</td>
+          <td>值</td>
+          <td>String</td>
           <td>是</td>
           <td>——</td>
         </tr>
         <tr>
-          <td scope="row">total</td>
-          <td>需要显示的总数量</td>
-          <td>number</td>
+          <td scope="row">icon-name</td>
+          <td>值</td>
+          <td>String</td>
           <td>是</td>
           <td>——</td>
         </tr>
         <tr>
-          <td scope="row">continues</td>
-          <td>显示的页码数量</td>
-          <td>number</td>
-          <td>是</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td scope="row">@getPageNo=""</td>
-          <td>切换页码时触发的回调函数，页码作为参数返回</td>
-          <td>function</td>
+          <td scope="row">disabled</td>
+          <td>标签属性，设置是否可用</td>
+          <td>String</td>
           <td>是</td>
           <td>——</td>
         </tr>
@@ -93,58 +85,43 @@ export default {
   },
   data(){
     return{
-      pageNo:1,
       code:`
           < template>
-              <c-pagination
-                  :pageNo="pageNo"
-                  :pageSize="pageSize"
-                  :total="total"
-                  :continues="continues"
-                  @getPageNo="getPageNo"
-                />
+              <c-tabs :selected.sync="selectedTab">
+                  <c-tabs-head>
+                        <c-tabs-item name='tab1'>
+                            <c-icon icon-name="settings"></c-icon>
+                            Tab1
+                        </c-tabs-item>
+                        <c-tabs-item name='tab2'>Tab2</c-tabs-item>
+                        <c-tabs-item name='tab3'>Tab3</c-tabs-item>
+                        <c-tabs-item name='tab4' disabled>Tab4</c-tabs-item>
+                    </c-tabs-head>
+                    <c-tabs-body>
+                        <c-tabs-pane name='tab1'>内容1</c-tabs-pane>
+                        <c-tabs-pane name='tab2'>内容2</c-tabs-pane>
+                        <c-tabs-pane name='tab3'>内容3</c-tabs-pane>
+                        <c-tabs-pane name='tab4'>内容4</c-tabs-pane>
+                  </c-tabs-body>
+              </c-tabs>
             </template>
             <script>
              export default {
-                data(){
-                  return{
-                    pageNo:1,
-                    total:102,
-                    pageSize:12,
-                    continues:5
+                  data() {
+                      return {
+                          selectedTab: 'tab1'
+                      }
                   }
-                },
-                methods:{
-                  getPageNo(pageNo) {
-                    this.newPageNo = pageNo;
-                    this.pageNo = this.newPageNo;
-                  }
-                }
-            }
+              }
            </ script>
            `,
       lineNumbers:false,
       readonly:true,
-      goods:[
-        ['01','02','03','04','05','06','07','08','09',10,11,12],
-        [13,14,15,16,17,18,19,20,21,22,23,24],
-        [25,26,27,28,29,30,31,32,33,34,35,36],
-        [37,38,39,40,41,42,43,44,45,46,47,48],
-        [49,50,51,52,53,54,55,56,57,58,59,60],
-        [61,62,63,64,65,66,67,68,69,70,71,72],
-        [73,74,75,76,77,78,79,80,81,82,83,84],
-        [85,86,87,88,89,90,91,92,93,94,95,96],
-        [97,98,99,'00','01','02']
-      ]
+
 
     }
   },
   methods:{
-    getPageNo(pageNo) {
-      this.newPageNo = pageNo;
-      this.pageNo = this.newPageNo;
-    },
-
     highlighter(code) {
       return highlight(code, languages.js); //returns html
     }
@@ -155,6 +132,12 @@ export default {
 
 <style lang="less" scoped>
 p {color: #606266;}
+.text {
+  margin: 0.5rem 0;
+}
+.text span {
+  color: #409eff;
+}
 .my-editor {
   color: #409eff;
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;

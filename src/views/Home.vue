@@ -109,9 +109,13 @@ export default {
     color: #ffffff;
     box-sizing: border-box;
   }
-  .logo .slogan .slogan-there a:hover {
+  .logo .slogan .slogan-there a:nth-child(2):hover span,
+  .logo .slogan .slogan-there a:nth-child(3):hover span {
     cursor: pointer;
-    border-bottom: #409eff 1px solid;
+    color: #409eff;
+  }
+  .logo .slogan .slogan-there a:nth-child(1):hover span {
+    color: #1b1e21;
   }
   .logo .slogan .slogan-there a span {
     display: inline-block;
