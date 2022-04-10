@@ -164,10 +164,12 @@ export default {
   .gbc {
     position: relative;
     background-color: #409eff;
-    width: 0.3rem;
+    width: 0.4rem;
     height: 1.9rem;
     top:85px;
     transition: all 900ms;
+    border-radius: 3px;
+    margin-left: 2px;
   }
   .nav-left .nav-item li a:hover {
     color: #409eff;

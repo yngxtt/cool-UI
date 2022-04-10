@@ -31,17 +31,11 @@ export default {
     }
   },
   created() {
-      // this.TitleText = this.title;
-      // this.inputTimeData = this.inputTime;
-      // this.countDown = this.isCountDown;
-      // this.isDay = this.isShowDay
-      // this.isHour = this.isShowHour
-      // this.isMinute = this.isShowMinute
-      // this.isSecond = this.isShowSecond
+    this.getTime();
 
   },
   mounted() {
-    this.getTime();
+
   },
   methods: {
       getTime() {

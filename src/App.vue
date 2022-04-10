@@ -80,7 +80,7 @@ body {
  内阴影+圆角*/
 ::-webkit-scrollbar-track
 {
-  -webkit-box-shadow:inset 0 0 3px rgba(0,0,255,0.3);
+  -webkit-box-shadow:inset 0 0 3px rgba(0,0,255,0.5);
   border-radius:10px;
   background-color:#F5F5F5;
 }
@@ -89,7 +89,7 @@ body {
 ::-webkit-scrollbar-thumb
 {
   border-radius:10px;
-  -webkit-box-shadow:inset 0 0 5px rgba(0,0,255,.3);
+  -webkit-box-shadow:inset 0 0 5px rgba(0,0,255,.5);
   background-color:#eee;
 }
 
