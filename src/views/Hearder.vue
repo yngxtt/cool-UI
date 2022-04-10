@@ -11,8 +11,8 @@
       </div>
       <img class="search-img" @click="isSearchShow" src="../../public/search.svg" />
       <div class="nav-text" v-for="(nav,index) in navList"  :key="index" @click="navTransfrom(index)">
-        <template  @click="navTransfrom(index)">
-          <router-link :class="{active:activeValue == index}" :to="nav.page">{{nav.text}}</router-link>
+        <template  @click="navTransfrom(index,nav.page)">
+          <a :class="{active:activeValue == index}" href="javascript:;" >{{nav.text}}</a>
         </template>
       </div>
       <div class="github">
@@ -46,8 +46,15 @@ export default {
     }
   },
   methods:{
-    navTransfrom(index) {
+    navTransfrom(index,path) {
       this.activeValue = index;
+      if(index === 0) {
+        this.$router.push(`${path}`)
+      }
+
+      if(index === 1) {
+        this.$bus.$emit('go')
+      }
     },
     navShowClick() {
       if(this.$route.path==='/home') {
@@ -115,9 +122,7 @@ export default {
 </script>
 
 <style scoped>
-  @media screen and (max-width:960px){
 
-  }
   .cover {
     width: 100%;
     height: 3.6rem;

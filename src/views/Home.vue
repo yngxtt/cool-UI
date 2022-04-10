@@ -1,5 +1,5 @@
 <template>
-  <div class="cover">
+  <div class="cover" ref="home">
     <div class="logo">
       <div class="logo-img"><img src="../../public/logoText.png" /></div>
       <div class="slogan">
@@ -26,7 +26,7 @@
     <div class="button-text">
       <h1>Cool UI  官方网站</h1>
       <p>一 个超 Cool 的 UI 组 件 库</p>
-      <span @click="goStart">快速上手 →</span>
+      <span class="animate__animate animate__backOutRight" @click="goStart">快速上手 →</span>
     </div>
     <div class="info">
       <div class="info-item">
@@ -52,13 +52,25 @@ export default {
   name: "Home",
   methods:{
     goStart() {
-      this.$router.push('/start/install')
+      this.$refs.home.style.right= '-'+ this.$refs.home.offsetWidth+ 'px';
+      setTimeout(()=>{
+          this.$router.push('/start/install');
+      },280)
     }
+  },
+  mounted() {
+    this.$bus.$on('go',this.goStart)
   }
 }
 </script>
 
 <style scoped>
+  .cover {
+    text-align: center;
+    position:relative;
+    transition: all 800ms;
+    right:0;
+  }
   .svg svg{
     width: 20px;
     height: 20px;
@@ -66,9 +78,6 @@ export default {
   .svg {
     margin-top: 2px;
     margin-right: 5px;
-  }
-  .cover {
-    text-align: center;
   }
   .logo {
     margin-top: 3rem;
@@ -155,6 +164,12 @@ export default {
     line-height: 3.1rem;
     border-radius: 0.3rem;
     margin: 1rem;
+  }
+  .button-text span:hover {
+    cursor: pointer;
+    width: 8.2rem;
+    transition: all 450ms;
+
   }
   .info {
     border-top: 1px solid #eaecef;

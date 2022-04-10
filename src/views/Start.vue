@@ -1,7 +1,7 @@
 <template>
     <div class="cover ">
 <!--      <transition name="nav">-->
-          <div class="nav-left clearfix"  ref="nav">
+          <div class="nav-left run-animation  clearfix"  ref="nav">
             <div class="gbc" ref="gbc"></div>
             <div class="nav-item">
               <p>入 门</p>
@@ -72,9 +72,7 @@ export default {
     //导航切换
     navSwitch(id) {
       this.active = id;
-
       this.$refs.gbc.style.top = this.$refs.item[id].offsetTop + 'px';
-      console.log(this.$refs.item[0].offsetTop);
       // console.log(index)
       if(this.windowWidth < 960) {
         this.navIsShow = false;
@@ -83,6 +81,7 @@ export default {
     },
     navShow(value) {
       this.navIsShow = value;
+
     },
     windowW(value) {
       this.windowWidth = value
@@ -93,13 +92,14 @@ export default {
       if(val) {
         this.$refs.nav.style.left = '0'
       } else {
-        this.$refs.nav.style.left = '-246px'
+        this.$refs.nav.style.left = '-260px'
       }
     }
   },
   mounted() {
     this.$bus.$on('navShow',this.navShow,);
     this.$bus.$on('getWindowWidth',this.windowW);
+
   },
 
   beforeDestroy() {
@@ -123,18 +123,16 @@ export default {
 
   }
 
-
-
-
   .nav-left {
     font-size: 16px;
     background-color: #fff;
-    width: 246px;
+    width: 260px;
+    height: 100%;
     position: fixed;
     z-index: 10;
     margin: 0;
     top: 2.3rem;
-    left: 0;
+    left: -246px;
     bottom: 0;
     box-sizing: border-box;
     border-right: 1px solid #eaecef;
@@ -169,7 +167,7 @@ export default {
     width: 0.3rem;
     height: 1.9rem;
     top:85px;
-    transition: all 800ms;
+    transition: all 900ms;
   }
   .nav-left .nav-item li a:hover {
     color: #409eff;
@@ -204,7 +202,7 @@ export default {
     width: 70%;
   }
 }
-  @media screen and (max-width:900px){
+@media screen and (max-width:900px){
     .router-view {
       width: 95%;
       top:0;
@@ -213,7 +211,23 @@ export default {
     }
     .nav-left {
       width: 14rem;
+      left:-260px
     }
   }
+@media screen and (min-width:900px){
+  .nav-left {
+  }
+  @keyframes animation {
+    from {
+      left : -260px;
+    }
+    to {
+      left : 0;
+    }
+  }
+  .run-animation {
+    animation: animation 800ms ease;
+  }
+}
 
 </style>

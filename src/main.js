@@ -5,8 +5,8 @@ import Pagination from "./components/Pagination";
 Vue.component(Pagination.name,Pagination);
 //引入路由
 import router from './router/index.js';
-
-
+import  animate from 'animate.css';
+Vue.use(animate)
 Vue.config.productionTip = false
 
 new Vue({
