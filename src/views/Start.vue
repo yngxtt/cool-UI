@@ -34,6 +34,7 @@ export default {
   data() {
     return{
       navIsShow:false, //导航是否显示
+      //导航数据
       navStart:[{
         id:0,
         text:'安装',

@@ -2,25 +2,21 @@
   <div id="app">
 <!--    <HelloWorld :pageNo="pageNo" :pageSize="10" :total="100" :continues="5" @getPageNo="getPageNo"></HelloWorld>-->
     <Hearder></Hearder>
-<!--    <Home></Home>-->
-<!--    <Start></Start>-->
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue';
+
 import Hearder from "./views/Hearder";
-// import Home from "./views/Home";
-// import Start from "./views/Start";
+
 
 export default {
   name: 'App',
   components: {
   Hearder
-  // Home,
-  //   Start
-    // HelloWorld
+ 
   },
   data(){
     return{

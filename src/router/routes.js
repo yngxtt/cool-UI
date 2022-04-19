@@ -1,3 +1,4 @@
+//理由配置
 import Home from '../views/Home';
 import Start from "../views/Start";
 //二级路由

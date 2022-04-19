@@ -2,7 +2,7 @@
   <div class="calendar">
 
     <section class="header">
-
+      <!-- 切换按钮 -->
       <span class="cursor" @click="handleYear(-1)">◀◀</span>
       <span class="cursor" @click="handlePreMonth">◀</span>
       <span>{{ selectData.year }}年{{ selectData.month }}月{{ selectData.day }}日</span>
@@ -113,12 +113,6 @@ export default {
   },
   created() {
     this.checkoutCurrentDate()
-    // this.transitionDuration = this.animationTime
-    // this.needAnimation = this.slideAnimation
-    // this.isWeekView = this.isWeek
-    // this.itemHeight = this.Height
-    // this.needHeightAnimation = this.HeightAnimation
-    // this.isDelay =this.etc
   },
   watch: {
     dataArr: {

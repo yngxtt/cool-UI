@@ -34,6 +34,7 @@ export default {
       logoIsShow:true, //logo字是否显示
       navLinkShow:false, //导航显示按钮 是否显示
       navIsShow:null, //导航是否显示   传递给Start组件
+      //导航数据
       navList:[{
         text:'主 页',
         page:'/home'
