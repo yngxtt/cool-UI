@@ -8,7 +8,7 @@
         <div class="slogan-there">
           <a href="https://cn.vuejs.org/" target="_blank">
              <span class="svg">
-               <svg t="1649517763777" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2209" width="32" height="32"><path d="M777.8 128.6H624l-112 177.2-96-177.2H64L512 896 960 128.6h-182.2z m-602.4 64h107.6L512 589 740.8 192.6h107.6L512 769 175.4 192.6z" fill="#707070" p-id="2210"></path></svg>
+              <svg t="1650480526391" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2055" width="32" height="32"><path d="M777.8 128.6H624l-112 177.2-96-177.2H64L512 896 960 128.6h-182.2z m-602.4 64h107.6L512 589 740.8 192.6h107.6L512 769 175.4 192.6z" fill="#ffffff" p-id="2056" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path></svg>
             </span >
             <span>Vue. js</span>
           </a>
@@ -227,7 +227,7 @@ export default {
     }
     .slogan-there {
       display: flex;
-
+      padding-top: 0.4rem;
       flex-wrap: wrap;
       justify-content: center;
       margin: 2rem;
